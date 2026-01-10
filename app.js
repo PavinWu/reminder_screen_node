@@ -1,7 +1,7 @@
 const http = require('http')
 const fs = require('fs').promises
 const path = require('path')
-const oled = require('./oled_init')
+const oledHandler = require('./oled_handler')
 
 const pagesDir = path.join(__dirname, 'pages')
 
@@ -37,4 +37,5 @@ const server = http.createServer(async (req, res) =>
     }
 })
 
-server.listen(3000)
+oledHandler.init();
+server.listen(3000);
