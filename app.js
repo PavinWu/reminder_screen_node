@@ -20,6 +20,20 @@ const server = http.createServer(async (req, res) =>
             res.end('Internal Server Error')
         }
     }
+    else if (req.url === '/set-timer' && req.method === 'POST')
+    {
+        let body = ''
+        req.on('data', chunk => {
+            // accumulate data stream
+            body += chunk.toString()
+        })
+        req.on('end', () => {
+            const data = JSON.parse(body)
+            console.log('Received timer config:', data)
+            res.writeHead(200, { 'content-type': 'text/plain' })
+            res.end('OK')
+        })
+    }
 })
 
 server.listen(3000)

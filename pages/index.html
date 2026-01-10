@@ -4,6 +4,34 @@
         <title>Timer</title>
     </head>
     <body>
-        <p>Test</p>
+        <div class="control-group">
+            <label for="timer-input">Target Timer (mins):</label>
+            <input type="number" id="timer-input" value="60">
+        </div>
+
+        <div class="control-group">
+            <label for="rest-input">Target Rest (mins):</label>
+            <input type="number" id="rest-input" value="5">
+        </div>
+
+        <button id="set-timer-btn">Set</button>
+
+        <script>
+            document.getElementById('set-timer-btn').addEventListener('click', () => {
+                const timerMins = document.getElementById('timer-input').value;
+                const restMins = document.getElementById('rest-input').value;
+                
+                // fetch to load data without loading page
+                fetch('/set-timer', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ timer: timerMins, rest: restMins })
+                })
+                .then(response => console.log('Sent successfully, status:', response.status))
+                .catch(error => console.error('Error:', error));
+            });
+        </script>
     </body>
 </html>
